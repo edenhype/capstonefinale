@@ -145,7 +145,7 @@ setInterval(() => {
 
     if (timer > agSwitch) ag.speed *= Math.random() > 0.5 ? 1 : -1
 
-    if (ag.invincibility) ag.invincibility -= 0.017
+    if (ag.invincibility) ag.invincibility -= 0.017 
     else ag.invincibility = 0
 
     if (!ag.invincibility) {
