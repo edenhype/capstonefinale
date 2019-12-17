@@ -118,13 +118,22 @@ window.addEventListener('DOMContentLoaded', _ => {
     e.preventDefault()
   })
   window.addEventListener('mousedown', e => {
-    e.button === 2 && socket.emit('data', [0, 1])
+    if (matchMedia('(pointer:fine)').matches && e.button !== 2) return
+    socket.emit('data', [0, 1])
   })
   window.addEventListener('mouseup', e => {
-    e.button === 2 && socket.emit('data', [0, 0])
+    if (matchMedia('(pointer:fine)').matches && e.button !== 2) return
+    socket.emit('data', [0, 0])
   })
   window.addEventListener('mousemove', e => {
-    socket.emit('data', [1, e.clientX - document.body.clientWidth * 0.5, document.body.clientHeight * 0.5 - e.clientY])
+    let pX = e.clientX, pY = e.clientY
+
+    if (!matchMedia('(pointer:fine)').matches) {
+      pX = e.targetTouches[0].clientX
+      pY = e.targetTouches[0].clientY
+    }
+
+    socket.emit('data', [1, pX - document.body.clientWidth * 0.5, document.body.clientHeight * 0.5 - pY])
   })
 
   function animate() {

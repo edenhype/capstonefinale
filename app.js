@@ -116,7 +116,7 @@ setInterval(() => {
   Entity.playerArr.forEach(p => {
     if (!p.active) return
 
-    if (p.invincibility) p.invincibility -= 0.017
+    if (p.invincibility > 0) p.invincibility -= 0.017
     else p.invincibility = 0
 
     if (p.moving) {
@@ -145,10 +145,10 @@ setInterval(() => {
 
     if (timer > agSwitch) ag.speed *= Math.random() > 0.5 ? 1 : -1
 
-    if (ag.invincibility) ag.invincibility -= 0.017
+    if (ag.invincibility > 0) ag.invincibility -= 0.017
     else ag.invincibility = 0
 
-    if (ag.invincibility) {
+    if (!ag.invincibility) {
       ag.position[0] = Math.min(10, Math.max(-10, ag.position[0] + ag.moveDir[0] * ag.speed))
       ag.position[1] = Math.min(10, Math.max(-10, ag.position[1] + ag.moveDir[1] * ag.speed))
     }
