@@ -34,7 +34,7 @@ class Entity {
     this.gamePoints = 1
     
     this.moving = 0
-    this.speed = 0.1
+    this.speed = this.type === Entity.Enum.ANGERY ? 0.05 : 0.1
 
     this.radius = this.type === Entity.Enum.POINT ? 0.25 : this.type === Entity.Enum.ANGERY ? 0.5 : 1
     this.lineVector = [0, 0]
@@ -145,10 +145,10 @@ setInterval(() => {
 
     if (timer > agSwitch) ag.speed *= Math.random() > 0.5 ? 1 : -1
 
-    if (ag.invincibility) ag.invincibility -= 0.017 
+    if (ag.invincibility) ag.invincibility -= 0.017
     else ag.invincibility = 0
 
-    if (!ag.invincibility) {
+    if (ag.invincibility) {
       ag.position[0] = Math.min(10, Math.max(-10, ag.position[0] + ag.moveDir[0] * ag.speed))
       ag.position[1] = Math.min(10, Math.max(-10, ag.position[1] + ag.moveDir[1] * ag.speed))
     }
@@ -170,7 +170,7 @@ setInterval(() => {
       ...(Entity.entityArr.map(e => [e.type, e.name, ...e.position, ...e.moveDir, e.gamePoints]))
     )
   )
-}, 33)
+}, 17)
 
 server.listen(port)
 console.log(`listening at port ${port}`)
